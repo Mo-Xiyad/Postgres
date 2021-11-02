@@ -1,17 +1,17 @@
 import { Router } from "express";
 
-import usersHandler from "./handlers.js";
+import productsRoute from "./handlers.js";
 
 const router = Router();
 
-router.get("/", usersHandler.getAll);
+router.get("/", productsRoute.getAllProducts);
 
-router.post("/", usersHandler.createUser);
+router.post("/", productsRoute.createProducts);
 
 router
   .route("/:id")
-  .get(usersHandler.getById)
-  .put(usersHandler.updateUserById)
-  .delete(usersHandler.deleteUserById);
+  .get(productsRoute.getProductById)
+  .put(productsRoute.updateProductById)
+  .delete(productsRoute.deleteProductById);
 
 export default router;
