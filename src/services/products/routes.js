@@ -1,12 +1,31 @@
 import { Router } from "express";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import { v2 as cloudinary } from "cloudinary";
+import multer from "multer";
 
 import productsRoute from "./handlers.js";
+
+const cloudinaryStorage = new CloudinaryStorage({
+  cloudinary, // CREDENTIALS, this line of code is going to search in your process.env for something called CLOUDINARY_URL
+  params: {
+    folder: "amazon-marketplace",
+  },
+});
 
 const router = Router();
 
 router.get("/", productsRoute.getAllProducts);
 
 router.post("/", productsRoute.createProducts);
+
+router
+  .route("/:id/productCover")
+  .put(
+    multer({ storage: cloudinaryStorage }).single("product"),
+    productsRoute.addProductImage
+  );
+
+router.route("/:productId/reviews").post(productsRoute.createReview);
 
 router
   .route("/:id")
