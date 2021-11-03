@@ -41,6 +41,7 @@ router
 router
   .route("/:productId/reviews/:reviewId")
   .get(productReviewHandler.getReviewsbyId)
-  .put(productReviewHandler.updateReviewById);
+  .put(productReviewHandler.updateReviewById)
+  .delete(productReviewHandler.deleteReviewById);
 
 export default router;
