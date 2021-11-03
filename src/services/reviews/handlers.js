@@ -35,7 +35,7 @@ const getAllReviewsbyProductId = async (req, res, _next) => {
 const getReviewsbyId = async (req, res, next) => {
   try {
     const data = await pool.query("SELECT * FROM reviews WHERE id=$1", [
-      req.params.id,
+      req.params.reviewId,
     ]);
 
     if (data.rows.length === 0) {

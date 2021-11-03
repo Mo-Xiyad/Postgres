@@ -28,14 +28,18 @@ router
   );
 
 router
+  .route("/:id")
+  .get(productsRoute.getProductById)
+  .put(productsRoute.updateProductById)
+  .delete(productsRoute.deleteProductById);
+
+router
   .route("/:productId/reviews")
   .post(productReviewHandler.createReview)
   .get(productReviewHandler.getAllReviewsbyProductId);
 
 router
-  .route("/:id")
-  .get(productsRoute.getProductById)
-  .put(productsRoute.updateProductById)
-  .delete(productsRoute.deleteProductById);
+  .route("/:productId/reviews/:reviewId")
+  .get(productReviewHandler.getReviewsbyId);
 
 export default router;
