@@ -5,6 +5,8 @@ import multer from "multer";
 
 import productsRoute from "./handlers.js";
 
+import productReviewHandler from "../reviews/handlers.js";
+
 const cloudinaryStorage = new CloudinaryStorage({
   cloudinary, // CREDENTIALS, this line of code is going to search in your process.env for something called CLOUDINARY_URL
   params: {
@@ -25,7 +27,10 @@ router
     productsRoute.addProductImage
   );
 
-router.route("/:productId/reviews").post(productsRoute.createReview);
+router
+  .route("/:productId/reviews")
+  .post(productReviewHandler.createReview)
+  .get(productReviewHandler.getAllReviewsbyProductId);
 
 router
   .route("/:id")

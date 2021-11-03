@@ -77,28 +77,13 @@ const addProductImage = async (req, res, next) => {
   }
 };
 
-const createReview = async (req, res, next) => {
-  try {
-    const { comment, rate } = req.body;
-    const data = await pool.query(
-      "INSERT INTO reviews(product_id,comment,rate) VALUES($1,$2,$3) RETURNING *;",
-      [req.params.productId, comment, rate]
-    );
-
-    res.send(data.rows[0]);
-  } catch (error) {
-    res.status(400).send(error.message);
-    next(error);
-  }
-};
-const usersHandler = {
+const productsHandler = {
   getAllProducts,
   getProductById,
   createProducts,
   updateProductById,
   deleteProductById,
   addProductImage,
-  createReview,
 };
 
-export default usersHandler;
+export default productsHandler;
