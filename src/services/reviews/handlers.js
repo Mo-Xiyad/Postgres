@@ -32,9 +32,27 @@ const getAllReviewsbyProductId = async (req, res, _next) => {
   }
 };
 
+const getReviewsbyId = async (req, res, next) => {
+  try {
+    const data = await pool.query("SELECT * FROM reviews WHERE id=$1", [
+      req.params.id,
+    ]);
+
+    if (data.rows.length === 0) {
+      res.status(400).send("reviews not found");
+    } else {
+      res.send(data.rows);
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+    next(error);
+  }
+};
+
 const productReviewHandler = {
   createReview,
   getAllReviewsbyProductId,
+  getReviewsbyId,
 };
 
 export default productReviewHandler;
