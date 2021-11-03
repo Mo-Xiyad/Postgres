@@ -53,8 +53,8 @@ const updateReviewById = async (req, res, next) => {
   try {
     const { comment, rate } = req.body;
     const data = await pool.query(
-      "UPDATE products SET comment=$1, rate=$2, WHERE id=$3 RETURNING *;",
-      [comment, rate, req.params.id]
+      "UPDATE reviews SET comment=$1, rate=$2 WHERE id=$3 RETURNING *;",
+      [comment, rate, req.params.reviewId]
     );
     res.send(data.rows[0]);
   } catch (error) {

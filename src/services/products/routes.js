@@ -40,6 +40,7 @@ router
 
 router
   .route("/:productId/reviews/:reviewId")
-  .get(productReviewHandler.getReviewsbyId);
+  .get(productReviewHandler.getReviewsbyId)
+  .put(productReviewHandler.updateReviewById);
 
 export default router;
