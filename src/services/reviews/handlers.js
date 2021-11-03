@@ -15,7 +15,7 @@ const createReview = async (req, res, next) => {
   }
 };
 
-const getAllReviewsbyProductId = async (req, res, _next) => {
+const getAllReviewsbyProductId = async (req, res, next) => {
   try {
     const data = await pool.query(
       "SELECT * FROM reviews WHERE product_id=$1 ORDER BY id ASC",
@@ -62,11 +62,23 @@ const updateReviewById = async (req, res, next) => {
   }
 };
 
+const deleteReviewById = async (req, res, next) => {
+  try {
+    await pool.query("DELETE FROM reviews WHERE id=$1", [req.params.reviewId]);
+    res.status(204).send();
+  } catch (error) {
+    res.status(400).send(error.message);
+    console.log(error.message);
+    next(error);
+  }
+};
+
 const productReviewHandler = {
   createReview,
   getAllReviewsbyProductId,
   getReviewsbyId,
   updateReviewById,
+  deleteReviewById,
 };
 
 export default productReviewHandler;
